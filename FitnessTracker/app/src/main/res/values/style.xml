@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <resources>
+
+        <style name="TextViewForm">
+            <item name="android:layout_marginHorizontal">30dp</item>
+            <item name="android:layout_marginVertical">20dp</item>
+        </style>
+
+        <style name="EditTextForm">
+            <item name="android:layout_width">match_parent</item>
+            <item name="android:layout_height">wrap_content</item>
+            <item name="android:inputType">number</item>
+            <item name="android:maxLength">3</item>
+            <item name="android:layout_marginHorizontal">30dp</item>
+            <item name="android:layout_marginBottom">20dp</item>
+        </style>
+
+        <style name="ButtonForm">
+            <item name="android:textColor">@android:color/white</item>
+            <item name="android:background">@drawable/bg_button_accent</item>
+            <item name="android:layout_marginBottom">30dp</item>
+            <item name="android:layout_width">wrap_content</item>
+            <item name="android:layout_height">wrap_content</item>
+        </style>
+    </resources>
