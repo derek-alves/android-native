@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
             //        rvMain.setLayoutManager(new LinearLayoutManager(this));
 
         rvMain.setLayoutManager(new GridLayoutManager(this,2));
+
         MainAdapter adapter = new MainAdapter(mainItems);
         adapter.setListener(id -> {
             switch (id){
