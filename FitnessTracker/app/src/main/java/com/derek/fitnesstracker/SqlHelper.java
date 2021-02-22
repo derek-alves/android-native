@@ -50,6 +50,7 @@ public class SqlHelper extends SQLiteOpenHelper {
                 db.beginTransaction();
 
                 ContentValues values = new ContentValues();
+
                 values.put("type_calc",type);
                 values.put("res",response);
 
@@ -59,6 +60,8 @@ public class SqlHelper extends SQLiteOpenHelper {
                 values.put("created_date",now);
                 calcId = db.insertOrThrow("calc",null,values);
 
+                db.setTransactionSuccessful();
+                Log.d("values", "values"+ calcId);
             }catch (Exception e){
                 Log.e("SQLite",e.getMessage(),e);
             }finally {
