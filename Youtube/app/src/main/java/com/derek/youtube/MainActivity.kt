@@ -2,6 +2,8 @@ package com.derek.youtube
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_main.*
@@ -12,10 +14,13 @@ import okhttp3.Request
 import okhttp3.Response
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var videoAdapter:VideoAdapter
+    private lateinit var videoAdapter: VideoAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = ""
 
         val videos: MutableList<VideosModel> = mutableListOf()
         videoAdapter = VideoAdapter(videos) { video: VideosModel ->
@@ -26,17 +31,23 @@ class MainActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.IO).launch {
             val res: Deferred<ListVideo?> = async { getVideo() }
-            val listVideo:ListVideo? = res.await()
-            withContext(Dispatchers.Main){
+            val listVideo: ListVideo? = res.await()
+            withContext(Dispatchers.Main) {
                 listVideo?.let {
                     videos.clear()
                     videos.addAll(listVideo.data)
                     videoAdapter.notifyDataSetChanged()
-                    motion_container.removeView(progress_recycler)
+                    progress_recycler.visibility = View.GONE
+//                    motion_container.removeView(progress_recycler)
                 }
             }
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     private fun getVideo(): ListVideo? {
