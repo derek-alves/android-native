@@ -2,11 +2,14 @@ package com.derek.youtube
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.Menu
 import android.view.View
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.video_detail.*
 import kotlinx.coroutines.*
 import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
@@ -24,8 +27,10 @@ class MainActivity : AppCompatActivity() {
 
         val videos: MutableList<VideosModel> = mutableListOf()
         videoAdapter = VideoAdapter(videos) { video: VideosModel ->
-            println(video)
+           showOverLayView(video)
         }
+
+        view_layer.alpha = 0f
         rv_main.layoutManager = LinearLayoutManager(this)
         rv_main.adapter = videoAdapter
 
@@ -49,6 +54,48 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.main_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
+
+    private fun showOverLayView(video:VideosModel){
+        view_layer.animate().apply {
+            duration = 400
+            alpha(0.5f)
+        }
+
+        motion_container.setTransitionListener(object :MotionLayout.TransitionListener{
+            override fun onTransitionStarted(
+                motionLayout: MotionLayout?,
+                startId: Int,
+                endId: Int
+            ) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onTransitionChange(
+                motionLayout: MotionLayout?,
+                startId: Int,
+                endId: Int,
+                progress: Float
+            ) {
+                view_layer.alpha = 1.0f - progress
+            }
+
+            override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onTransitionTrigger(
+                motionLayout: MotionLayout?,
+                triggerId: Int,
+                positive: Boolean,
+                progress: Float
+            ) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
+
+
 
     private fun getVideo(): ListVideo? {
         val client: OkHttpClient = OkHttpClient.Builder().build()
