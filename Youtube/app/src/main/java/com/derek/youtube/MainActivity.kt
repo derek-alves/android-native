@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.title = ""
 
         val videos: MutableList<VideosModel> = mutableListOf()
-        videoAdapter = VideoAdapter(videos) { video: VideosModel ->
+        videoAdapter = VideoAdapter(videos) { video ->
            showOverLayView(video)
         }
 
@@ -60,14 +60,13 @@ class MainActivity : AppCompatActivity() {
             duration = 400
             alpha(0.5f)
         }
-
-        motion_container.setTransitionListener(object :MotionLayout.TransitionListener{
+        motion_container.setTransitionListener(object:MotionLayout.TransitionListener{
             override fun onTransitionStarted(
                 motionLayout: MotionLayout?,
                 startId: Int,
                 endId: Int
             ) {
-                TODO("Not yet implemented")
+                println("Transition Started $startId - $endId")
             }
 
             override fun onTransitionChange(
@@ -76,11 +75,17 @@ class MainActivity : AppCompatActivity() {
                 endId: Int,
                 progress: Float
             ) {
-                view_layer.alpha = 1.0f - progress
+                
+                if(progress > 0.5f)
+                    view_layer.alpha = 1.0f - progress
+                else
+                    view_layer.alpha = 0.5f
+
+
             }
 
             override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
-                TODO("Not yet implemented")
+               println("Completed $currentId")
             }
 
             override fun onTransitionTrigger(
@@ -89,7 +94,7 @@ class MainActivity : AppCompatActivity() {
                 positive: Boolean,
                 progress: Float
             ) {
-                TODO("Not yet implemented")
+                println("Trigger $triggerId - $positive - $progress")
             }
 
         })
