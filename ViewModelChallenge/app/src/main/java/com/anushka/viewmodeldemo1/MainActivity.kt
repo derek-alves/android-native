@@ -3,24 +3,23 @@ package com.anushka.viewmodeldemo1
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.anushka.viewmodeldemo1.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainActivityViewModel
+    private lateinit var viewModelFactory:MainActivityViewModelFactory
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+        viewModelFactory = MainActivityViewModelFactory(125)
+        viewModel = ViewModelProvider(this,viewModelFactory).get(MainActivityViewModel::class.java)
 
-        binding.resultTextView.text = viewModel.getTotal().toString()
-
-        binding.insertButton.setOnClickListener {
-            viewModel.setTotal(binding.inputEditText.text.toString().toInt())
-            binding.resultTextView.text = viewModel.getTotal().toString()
-
-        }
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
     }
 }
