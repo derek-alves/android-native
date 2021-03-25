@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginBottom="20dp"
+    android:layout_marginRight="8dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/video_detail_thumbnail"
+        android:layout_width="160dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="h1,16:9"
+        tools:background="@tools:sample/backgrounds/scenic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        app:layout_constraintStart_toEndOf="@+id/video_detail_thumbnail"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/video_action"
+        android:text="Entrevista com Marlon Wayans | The noite(14/08/19)"
+        android:textStyle="bold"
+android:layout_marginLeft="10dp"
+        android:maxLines="2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/video_title"/>
+
+    <TextView
+        app:layout_constraintEnd_toStartOf="@+id/video_action"
+        app:layout_constraintTop_toBottomOf="@id/video_title"
+        app:layout_constraintStart_toStartOf="@+id/video_title"
+        android:text="Entrevista com Marlon Wayans | The noite(14/08/19)"
+        android:textStyle="bold"
+
+        android:maxLines="2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/video_detail_info"/>
+
+    <ImageView
+        android:id="@+id/video_action"
+        android:background="@drawable/ic_more_vert_blacked_24dp"
+
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
