@@ -7,9 +7,11 @@ import android.view.Menu
 import android.view.View
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.video_detail.*
+import kotlinx.android.synthetic.main.video_detail_content.*
 import kotlinx.coroutines.*
 import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
@@ -98,6 +100,10 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+        val detailAdapter = VideoDetailAdapter(videos())
+        rv_similar.layoutManager = LinearLayoutManager(this)
+        rv_similar.setHasFixedSize(true)
+        rv_similar.adapter = detailAdapter
     }
 
 
