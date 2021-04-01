@@ -27,11 +27,11 @@ android:layout_marginLeft="10dp"
         android:maxLines="2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/video_title"/>
+        android:id="@+id/video_detail_title"/>
 
     <TextView
         app:layout_constraintEnd_toStartOf="@+id/video_action"
-        app:layout_constraintTop_toBottomOf="@id/video_title"
+        app:layout_constraintTop_toBottomOf="@id/video_detail_title"
         app:layout_constraintStart_toStartOf="@+id/video_title"
         android:text="Entrevista com Marlon Wayans | The noite(14/08/19)"
         android:textStyle="bold"

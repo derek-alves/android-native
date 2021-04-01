@@ -117,6 +117,7 @@
             android:layout_toRightOf="@id/img_channel" />
 
         <TextView
+            android:id="@+id/content_title"
             android:layout_width="wrap_content"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"

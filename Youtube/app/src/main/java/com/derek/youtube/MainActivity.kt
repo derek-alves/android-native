@@ -9,6 +9,7 @@ import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.google.gson.GsonBuilder
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.video_detail.*
 import kotlinx.android.synthetic.main.video_detail_content.*
@@ -20,6 +21,8 @@ import okhttp3.Response
 
 class MainActivity : AppCompatActivity() {
     private lateinit var videoAdapter: VideoAdapter
+    private lateinit var youtubePlayer: YoutubePlayer
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -29,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         val videos: MutableList<VideosModel> = mutableListOf()
         videoAdapter = VideoAdapter(videos) { video ->
-           showOverLayView(video)
+            showOverLayView(video)
         }
 
         view_layer.alpha = 0f
@@ -50,6 +53,22 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        preparePlayer()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        youtubePlayer.release()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        youtubePlayer.pause()
+    }
+
+    private fun preparePlayer() {
+        youtubePlayer = YoutubePlayer(this)
+        surface_player.holder.addCallback(youtubePlayer)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -57,12 +76,12 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    private fun showOverLayView(video:VideosModel){
+    private fun showOverLayView(video: VideosModel) {
         view_layer.animate().apply {
             duration = 400
             alpha(0.5f)
         }
-        motion_container.setTransitionListener(object:MotionLayout.TransitionListener{
+        motion_container.setTransitionListener(object : MotionLayout.TransitionListener {
             override fun onTransitionStarted(
                 motionLayout: MotionLayout?,
                 startId: Int,
@@ -77,8 +96,8 @@ class MainActivity : AppCompatActivity() {
                 endId: Int,
                 progress: Float
             ) {
-                
-                if(progress > 0.5f)
+
+                if (progress > 0.5f)
                     view_layer.alpha = 1.0f - progress
                 else
                     view_layer.alpha = 0.5f
@@ -87,7 +106,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
-               println("Completed $currentId")
+                println("Completed $currentId")
             }
 
             override fun onTransitionTrigger(
@@ -100,12 +119,19 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+
+        video_player.visibility = View.GONE
+        youtubePlayer.setUrl(video.videoUrl)
+//        progress.visibility = View.GONE
+
         val detailAdapter = VideoDetailAdapter(videos())
         rv_similar.layoutManager = LinearLayoutManager(this)
-        rv_similar.setHasFixedSize(true)
         rv_similar.adapter = detailAdapter
-    }
+        content_channel.text = video.publisher.name
+        Picasso.get().load(video.publisher.pictureProfileUrl).into(img_channel)
 
+        detailAdapter.notifyDataSetChanged()
+    }
 
 
     private fun getVideo(): ListVideo? {

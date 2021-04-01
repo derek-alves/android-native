@@ -176,14 +176,14 @@
         app:layout_constraintTop_toTopOf="@id/full_player"
         tools:alpha="1" />
 
-    <ProgressBar
-        android:id="@+id/progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/video_player"
-        app:layout_constraintEnd_toEndOf="@id/video_player"
-        app:layout_constraintStart_toStartOf="@+id/video_player"
-        app:layout_constraintTop_toTopOf="@+id/video_player" />
+<!--    <ProgressBar-->
+<!--        android:id="@+id/progress"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/video_player"-->
+<!--        app:layout_constraintEnd_toEndOf="@id/video_player"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/video_player"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/video_player" />-->
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/play_button"
