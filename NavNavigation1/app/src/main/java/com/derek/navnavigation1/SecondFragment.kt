@@ -14,9 +14,12 @@ class SecondFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_second, container, false)
+
+        val input:String? = arguments?.getString("user_input")
+        binding.textView2.text = input.toString()
         return binding.root
     }
 
